@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // $categoies = Category::all();
-        // return view('categories.index',['categories'=>$categoies]);
-        $categories = Category::latest()->paginate(5);
-        return view ('categories.index',compact('categories'))->with('i', (request()->input('page', 1) -1) * 5);
+        // $tags = Tag::all();
+        // return view('tags.index',['tags'=> $tags]);
+        $tags = Tag::latest()->paginate(5);
+        return view ('tags.index',compact('tags'))->with('i', (request()->input('page', 1) -1) * 5);
     }
 
     /**
@@ -40,14 +40,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->name = $request->name;
-        $category->slug = \Str::slug($request->name);
-        $category->keywords = $request->keywords;
-        $category->meta_desc = $request->meta_desc;
-        $category->save();
+        $tag = new Tag();
+        $tag->name = $request->name;
+        $tag->slug = \Str::slug($request->name);
+        $tag->keywords = $request->keywords;
+        $tag->meta_desc = $request->meta_desc;
+        $tag->save();
 
-        return redirect()->back()->with('success', 'Data was successfully stored');
+        return redirect()->back()->with('success','Data added successfully');
     }
 
     /**
@@ -81,14 +81,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->name = $request->name;
-        $category->slug = $request->slug;
-        $category->keywords = $request->keywords;
-        $category->meta_desc = $request->meta_desc;
-        $category->save();
+        $Tag = Tag::findOrFail($id);
+        $Tag->name = $request->name;
+        $Tag->slug = $request->slug;
+        $Tag->keywords = $request->keywords;
+        $Tag->meta_desc = $request->meta_desc;
+        $Tag->save();
 
-        return redirect()->back()->with('success', 'Data was successfully updated');
+        return redirect()->back()->with('success','Data updated successfully');
     }
 
     /**
@@ -99,9 +99,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $Tag = Tag::findOrFail($id);
+        $Tag->delete();
 
-        return redirect()->back()->with('success', 'Data was successfully removed');
+        return redirect()->route('categories.index')->with('success', 'Data Deleted Successfully');
     }
 }

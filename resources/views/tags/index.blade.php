@@ -12,7 +12,7 @@
         <div class="row">
             <div class="table-responsive mt-2">
                 <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#addModal">
-                Add Category
+                Add Tag
                 </button>
                 @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show my-1" role="alert">
@@ -37,10 +37,10 @@
                         @php
                             $no = 1;
                         @endphp
-                        @foreach ($categories as $key => $item)
+                        @foreach ($tags as $key => $item)
                             <tr>
                                 {{-- <th scope="row">{{ ++$key }}</th> --}}
-                                <td style="font-weight:bold ">{{ $categories->firstItem()+$key }}</td>
+                                <td style="font-weight:bold ">{{ $tags->firstItem()+$key }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->slug }}</td>
                                 <td>{{ $item->keywords }}</td>
@@ -49,7 +49,7 @@
                                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal-{{ $item->id }}">
                                         Edit
                                     </button>
-                                    <form method="POST" action="{{route('categories.destroy', [$item->id])}}" class="d-inline" onsubmit="return confirm('Delete this data permanently?')">
+                                    <form method="POST" action="{{route('tags.destroy', [$item->id])}}" class="d-inline" onsubmit="return confirm('Delete this data permanently?')">
                                     @csrf
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="submit" value="Delete" class="btn btn-danger btn-sm">
@@ -68,7 +68,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('categories.update', $item->id) }}" method="POST">
+                                            <form action="{{ route('tags.update', $item->id) }}" method="POST">
                                                 <input type="hidden" name="_method" value="PUT">
                                                 @csrf
                                                 <div class="form-group">
@@ -101,15 +101,15 @@
                 <div>
                     <div style="float: left">
                         Showing
-                        {{ $categories->firstItem() }}
+                        {{ $tags->firstItem() }}
                         to
-                        {{ $categories->lastItem() }}
+                        {{ $tags->lastItem() }}
                         of
-                        {{ $categories->total() }}
+                        {{ $tags->total() }}
                         entries
                     </div>
                     <div style="float: right">
-                        {{ $categories->links() }}
+                        {{ $tags->links() }}
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form action="{{ route('tags.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
