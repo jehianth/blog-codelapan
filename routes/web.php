@@ -17,9 +17,10 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('homepage');
+Route::get('post/{slug}', [App\Http\Controllers\FrontController::class, 'show'])->name('show');
+Route::get('category/{category:slug}', [App\Http\Controllers\FrontController::class, 'category'])->name('category');
+Route::get('tag/{tag:slug}', [App\Http\Controllers\FrontController::class, 'tag'])->name('tag');
 
 Auth::routes();
 

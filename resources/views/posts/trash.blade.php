@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        th, td
+        {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
     <div class="container">
         <div class="row">
             <div class="table-responsive">
@@ -32,14 +39,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php
+                        {{-- @php
                             $no = 1;
-                        @endphp
+                        @endphp --}}
                         @foreach ($posts as $key => $item)
-                        {{-- @foreach ($posts as $key => $item) --}}
                             <tr>
-                                {{-- <th scope="row">{{ ++$key }}</th> --}}
-                                <td style="font-weight:bold ">{{ $posts->firstItem()+$key }}</td>
+                                <th scope="row">{{ ++$key }}</th>
+                                {{-- <td style="font-weight:bold ">{{ $posts->firstItem()+$key }}</td> --}}
                                 <td>{{ $item->title }}</td>
                                 <td>{{  Str::limit( strip_tags( $item->desc ), 60 ) }}</td>
                                 <td>{{ $item->category->name }}</td>
